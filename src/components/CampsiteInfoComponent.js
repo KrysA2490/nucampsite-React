@@ -1,18 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap'
 
 
-//CampsiteInfo is an instance of Component
-class CampsiteInfo extends Component {
-    constructor(props){
-       super(props)
-       this.state={}
-    }
-    //Add a method to show each campsite
-    //I noticed that the argument does not need to be campsite. It can be another word ie camper as long as it matches with that is referenced in the div.
-
-    renderCampsite(campsite){
-        //write a return statement for component
+    function RenderCampsite({campsite}){
         return(
             <div className="col-md-5 m-1">
                  <Card>
@@ -26,8 +16,7 @@ class CampsiteInfo extends Component {
         )
     }
 
-    //Add a method to show comments
-   renderComments(comments){
+   function RenderComments({comments}){
     if(comments){
         return(
             <div className="col-md-5 m-1"> 
@@ -40,19 +29,19 @@ class CampsiteInfo extends Component {
     }
     return <div/>
 }
-    render(){
-        if(this.props.campsite){
+
+   function CampsiteInfo(props){
+        if(props.campsite){
                 return(
-                    <div className="row">
-                      {/* call the render campsite and render comments method here */}
-                        {this.renderCampsite(this.props.campsite)};
-                        {this.renderComments(this.props.campsite.comments)}; 
+                    <div className="container">
+                        <div className="row">
+                            <RenderCampsite campsite={props.campsite}/>
+                            <RenderComments comments ={props.campsite.comments} />
+                        </div>
                      </div>
                      )   
         }
         return <div/>
     }
-
-}
 
 export default CampsiteInfo;

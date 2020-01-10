@@ -1,38 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 //All custom components in React course will go in the components folder.
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap'
-import CampsiteInfo from './CampsiteInfoComponent'
+import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap'
 
-//new Class component
-//child class from a parent class. 
-class Directory extends Component {
-    //class component with constructor method must have argument "props"
-    constructor(props){
-       super(props);
-       //state is special React property - always need to hold an object.
-       this.state ={
-           //will keep track of whatever campsite is selected by user
-           selectedCampsite: null
-       };
+function RenderDirectoryItem({campsite, onClick}) {
 
-        }  
-        onCampsiteSelect(campsite){
-            this.setState({selectedCampsite: campsite});
-        }
-     
-                        
-    //every React component must return a React element
-    render(){
-        const directory = this.props.campsites.map(campsite=> {
-                //this return is for arrow function not component
+    return(
+        <Card onClick={() => onClick(campsite.id)}>         
+        <CardImg width="100%" src={campsite.image} alt={campsite.name}/>
+         <CardImgOverlay>
+             <CardTitle>{campsite.name} </CardTitle>
+        </CardImgOverlay>
+    </Card> 
+    );
+}
+
+function Directory(props){
+
+        const directory = props.campsites.map(campsite=> {
                 return(
                     <div key={campsite.id} className="col-md-5 m-1">
-                <Card onClick={() => this.onCampsiteSelect(campsite)}>               
-                    <CardImg width="100%" src={campsite.image} alt={campsite.name}/>
-                     <CardImgOverlay>
-                         <CardTitle>{campsite.name} </CardTitle>
-                    </CardImgOverlay>
-                </Card> 
+                        <RenderDirectoryItem campsite= {campsite} onClick={props.onClick}/>
                     </div>
                     )
                         });
@@ -41,13 +28,11 @@ class Directory extends Component {
                 <div className="row">
                     {directory}
                 </div>
-                <CampsiteInfo campsite={this.state.selectedCampsite}/> 
-                {/* <CampsiteInfo comments={this.state.comments} */}
-                
+               
             </div>
         );
-    }
-};
+    };
+
 
 
 export default Directory;
