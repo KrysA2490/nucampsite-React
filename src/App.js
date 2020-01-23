@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import { ConfigureStore } from './redux/configureStore';
 import './App.css';
 
-//cpaturing return value of ConfigureStore() from configureStore.js
+//capturing return value of ConfigureStore() from configureStore.js
 const store = ConfigureStore();
 
 class App extends Component {
