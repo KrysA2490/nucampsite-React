@@ -31,9 +31,7 @@ class CommentForm extends Component {
 
     handleSubmit(values){
         this.toggleModal();
-        //when the form is submitted, the addComment action creator will create an action using the values from this form.
-        //Then tha actiomn will get dispatched to its reducer, which will update the state.
-        this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text )
+        this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text )
      
     }
        
@@ -121,7 +119,7 @@ class CommentForm extends Component {
         )
     }
 
-   function RenderComments({comments, addComment, campsiteId}){
+   function RenderComments({comments, postComment, campsiteId}){
     if(comments){
         return(
             <div className="col-md-5 m-1"> 
@@ -129,7 +127,7 @@ class CommentForm extends Component {
                   {
                     comments.map(comment => <div key={comment.id}><p>{comment.text} <br></br> --- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </p></div>)
                     }
-                <CommentForm campsiteId = {campsiteId}  addComment = {addComment}/>
+                <CommentForm campsiteId = {campsiteId}  postComment = {postComment}/>
             </div>
         )
     }
@@ -174,7 +172,7 @@ class CommentForm extends Component {
                             <RenderCampsite campsite={props.campsite}/>
                             <RenderComments 
                                 comments ={props.comments} 
-                                addComment ={props.addComment}
+                                postComment ={props.postComment}
                                 campsiteId= {props.campsite.id}
                                 />
 
